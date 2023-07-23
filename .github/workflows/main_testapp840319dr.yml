@@ -8,8 +8,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'testapp840319dr/**'
   workflow_dispatch:
 
 env:
