@@ -1,13 +1,19 @@
+import azure.functions as func
 import logging
 
-import azure.functions as func
+app = func.FunctionApp()
 
+# Learn more at aka.ms/pythonprogrammingmodel
 
-def main(req: func.HttpRequest) -> func.HttpResponse:
-    logging.info('Python HTTP trigger function processed a request.')
+# Get started by running the following code to create a function using a HTTP trigger.
 
-    name = req.params.get('name')
-    if not name:
+@app.function_name(name="HttpTrigger1")
+@app.route(route="hello")
+def test_function(req: func.HttpRequest) -> func.HttpResponse:
+     logging.info('Python HTTP trigger function processed a request.')
+
+     name = req.params.get('name')
+     if not name:
         try:
             req_body = req.get_json()
         except ValueError:
@@ -15,9 +21,9 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         else:
             name = req_body.get('name')
 
-    if name:
+     if name:
         return func.HttpResponse(f"Hello, {name}. This HTTP triggered function executed successfully.")
-    else:
+     else:
         return func.HttpResponse(
              "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
              status_code=200
